@@ -23,7 +23,6 @@ class BlogController extends Controller
             $info = [
                 'id' => $blog->uuid,
                 'title' => $blog->title,
-                'content' => $blog->content,
                 'image' => url('storage/'. $blog->images[0]->path),
             ];
             array_push($data, $info);
@@ -61,7 +60,19 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        //
+        $blog = Blog::where('uuid', $id)->first();
+
+        if ($blog == null) 
+            return response()->json(['message' => 'Entrada no encontrada'], 200);
+
+        $data = [
+            'id' => $blog->uuid,
+            'title' => $blog->title,
+            'content' => $blog->content,
+            'image' => url('storage/'. $blog->images[0]->path),
+        ];
+
+        return response()->json($data, 200);
     }
 
     /**

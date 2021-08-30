@@ -135,7 +135,7 @@ class BlogController extends Controller
             'content' => $request->body
         ];
 
-        $blog = Blog::where('id', $id)->update($data);
+        Blog::where('id', $id)->update($data);
 
         if ($request->file('image') != null) {
             $name =  Str::random(10).'.'.$request->file('image')->extension();
